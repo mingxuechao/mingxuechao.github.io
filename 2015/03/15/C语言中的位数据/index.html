@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>C语言中的位数据 | ALIVE</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="生活一直在进行着">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="C语言中的位数据 | ALIVE">
+    <meta name="twitter:description" content="生活一直在进行着"">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="C语言中的位数据 | ALIVE">
+    <meta property="og:description" content="生活一直在进行着"">
+
+  
+    <meta name="author" content="God Ming">
+  
+    <link rel="stylesheet" type="text/css" href="/css/vno.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/tomorrow.css">
+    <!-- <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">  -->
+
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="/apple-touch-icon-precomposed.png" rel="apple-touch-icon">
+
+    <meta name="generator" content="hexo" />
+    
+    
+    <link rel="canonical" href="http://alivemen.com/2015/03/15/C语言中的位数据/" />
+
+    
+</head>
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 ALIVE 的主页"><img src="/images/logo2.jpg" width="80" alt="ALIVE logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for ALIVE">ALIVE</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">活着</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">重重的顾虑使我们全变成了懦夫，决心的赤热的光彩，被审慎的思维盖上了一层灰色，伟大的事业在这一种考虑之下，也会逆流而退，失去了行动的意义。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/mingxuechao" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+  <!-- Google Plus -->
+  
+  
+<!-- Twitter -->
+
+  
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-03-15T12:25:55.351Z" class="post-list__meta--date date">2015-03-15</time> &#8226; <span class="post-meta__tags tags">于&nbsp;</span>
+      <!--<span class="post-meta__author author"><img src="{{author.image}}" alt="profile image for {{author.name}}" class="avatar post-meta__avatar" /> by {{author.name}}</span>-->
+    </div>
+    <h1 class="post-title">C语言中的位数据</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="简单介绍">简单介绍</h3><p>在C语言中，我们可以用<code>sizeof()</code>函数来得到一个结构体或者是联合体的大小，以字节计算。某些时候为了充分的利用的内存空间，在确定所需范围的时候，可以采用位数据来表示所需要的数据。<br>例如：当我们需要一个记录时间的结构体时,我们可以这样定义：</p>
+<pre>
+#include &lt;stdio.h&gt;
+
+//简单的例子
+struct date
+{
+   unsigned int d;
+   unsigned int m;
+   unsigned int y;
+};
+
+int main()
+{
+   printf("Size of date is %d bytes\n";, sizeof(struct date));
+   struct date dt = {31, 12, 2014};
+   printf("Date is %d/%d/%d", dt.d, dt.m, dt.y);
+}
+输出：
+Size of date is 12 bytes
+Date is 31/12/2014
+</pre>
+
+<p><span>以上的实验中，unsigned int 的大小为4字节，此时date的大小为12字节。<br>然而，d的范围为1-31，m的范围为1-12，因此我们可以选取一个自己中的部分位来表示这两个数。</span></p>
+<pre>
+#include &lt;stdio.h&gt;
+
+// A space optimized representation of date
+struct date
+{
+   // d 的范围是1-31，因此采用5位就可以表示
+   unsigned int d: 5;
+
+   // m 的范围是1-12，因此采用4位就可以表示
+   unsigned int m: 4;
+
+   unsigned int y;
+};
+
+int main()
+{
+   printf("Size of date is %d bytes\n", sizeof(struct date));
+   struct date dt = {31, 12, 2014};
+   printf("Date is %d/%d/%d", dt.d, dt.m, dt.y);
+   return 0;
+}
+输出：
+Size of date is 8 bytes
+Date is 31/12/2014
+</pre>
+
+<h3 id="一些有意思的结果">一些有意思的结果</h3><li>1 用一个没有命名的变量，将其大小设置为0，可以使得这个从这一下的代码重新对其下一个字节。<br></li><br><pre><br>#include &lt;stdio.h&gt;<br><br>// 没有强制对齐<br>struct test1<br>{<br>   unsigned int x: 5;<br>   unsigned int y: 8;<br>};<br><br>// 强制对齐<br>struct test2<br>{<br>   unsigned int x: 5;<br>   unsigned int: 0;<br>   unsigned int y: 8;<br>};<br><br>int main()<br>{<br>   printf(“Size of test1 is %d bytes\n”, sizeof(struct test1));<br>   printf(“Size of test2 is %d bytes\n”, sizeof(struct test2));<br>   return 0;<br>}<br>输出结果:<br>Size of test1 is 4 bytes<br>Size of test2 is 8 bytes<br></pre><br><li>2 不能对结构体中的为变量运用取地址操作，因为这个变量未必是一个字节的开头<br></li><br><pre><br>#include &lt;stdio.h&gt;<br>struct test<br>{<br>   unsigned int x: 5;<br>   unsigned int y: 5;<br>   unsigned int z;<br>};<br>int main()<br>{<br>   test t;<br><br>   // Uncommenting the following line will make<br>   // the program compile and run<br>   printf(“Address of t.x is %p”, &amp;t.x);<br><br>   // The below line works fine as z is not a<br>   // bit field member<br>   printf(“Address of t.z is %p”, &amp;t.z);<br>   return 0;<br>}<br>Output:<br><br> error: attempt to take address of bit-field structure member ‘test::x’<br></pre><br><li>3 当数据超过字节位数所表示的范围时，将出先 <code>implementation defined</code> 错误<br></li><br><pre><br>#include &lt;stdio.h&gt;<br>struct test<br>{<br>   unsigned int x: 2;<br>   unsigned int y: 2;<br>   unsigned int z: 2;<br>};<br>int main()<br>{<br>   test t;<br>   t.x = 5;//已经超过了两位所表示的范围<br>   printf(“%d”, t.x);<br>   return 0;<br>}<br>Output:<br><br>Implementation-Dependent<br></pre><br><br><li>4 不能将位数据表示为静态类型变量，即 <code>static</code><br></li>
+
+<pre>
+// The below C++ program compiles and runs fine
+struct test1 {
+   static unsigned int x;
+};
+int main() {  }
+
+
+// But below C++ program fails in compilation as bit fields cannot be static
+struct test1 {
+   static unsigned int x: 5;
+};
+int main() {  }
+// error: static member 'x' cannot be a bit-field
+</pre>
+
+<p><li>5 不能定义位数据的数组，否则将在编译时出错。</li></p>
+<pre>
+struct test
+{
+  unsigned int x[10]: 5;
+};
+
+int main()
+{
+
+}
+Output:
+
+error: bit-field 'x' has invalid type
+</pre>
+
+<h3 id="一些例子">一些例子</h3><p>以上文献多翻译自<a href="http://www.geeksforgeeks.org/bit-fields-c/" target="_blank" rel="external">GeeksforGeeks</a>，只为更好的学习</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://alivemen.com/2015/03/15/C语言中的位数据/" data-title="C语言中的位数据" data-url="http://alivemen.com/2015/03/15/C语言中的位数据/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"godming"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+             <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      2015 God Ming<br>
+    </div>
+  </div>
+</footer>
+        </div>
+    </div>
+    
+    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/js/main.js"></script>
+
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>  
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+</body>
+</html>
